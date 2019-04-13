@@ -1,0 +1,87 @@
+﻿@model SchoolManagementSystem.Web.Models.Person.Instructor.InstructorDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<div class="col-md-6">
+    <div class="box box-solid">
+        <div class="box-header with-border">
+            <i class="fa fa-text-width"></i>
+            <h3 class="box-title">@Model.FullName</h3>
+        </div>
+        <div class="box-body">
+            <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.FirstName)</dt>
+                <dd>@Html.DisplayFor(model => model.FirstName)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.LastName)</dt>
+                <dd>@Html.DisplayFor(model => model.LastName)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+                <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Phone)</dt>
+                <dd>@Html.DisplayFor(model => model.Phone)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.HireDate)</dt>
+                <dd>@Html.DisplayFor(model => model.HireDate)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.AddressLine1)</dt>
+                <dd>@Html.DisplayFor(model => model.AddressLine1)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.AddressLine2)</dt>
+                <dd>@Html.DisplayFor(model => model.AddressLine2)</dd>
+
+                <dt>City</dt>
+                <dd>@ViewBag.City</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Courses)</dt>
+                <dd>
+                    <div class="col-md-6">
+                        <ul class="list-group">
+                            @foreach (var c in Model.Courses)
+                            {
+                                <li style="list-style:none">
+                                    @Html.ActionLink(c.Display, "Details", "Courses", new { id = c.Id }, new { @class = "list-group-item" })
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
+
+
+<style>
+    /* Hiding the checkbox, but allowing it to be focused */
+    .badgebox {
+        opacity: 0;
+    }
+
+        .badgebox + .badge {
+            /* Move the check mark away when unchecked */
+            text-indent: -999999px;
+            /* Makes the badge's width stay the same checked and unchecked */
+            width: 27px;
+        }
+
+        .badgebox:focus + .badge {
+            /* Set something to make the badge looks focused */
+            /* This really depends on the application, in my case it was: */
+            /* Adding a light border */
+            box-shadow: inset 0px 0px 5px;
+            /* Taking the difference out of the padding */
+        }
+
+        .badgebox:checked + .badge {
+            /* Move the check mark back when checked */
+            text-indent: 0;
+        }
+</style>

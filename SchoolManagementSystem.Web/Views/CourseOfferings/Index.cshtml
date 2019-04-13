@@ -1,0 +1,95 @@
+﻿@model IEnumerable<SchoolManagementSystem.Web.Models.CourseOffering.CourseOfferingViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Menu {
+    @Scripts.Render("~/Scripts/Tables/Data/menu")
+}
+
+@Styles.Render("~/AdminLTE/plugins/datatables/css")
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Course Offerings</h3>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th width="50">Status</th>
+                    <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                    <th>Session</th>
+                    <th>@Html.DisplayNameFor(model => model.Room)</th>
+                    <th>@Html.DisplayNameFor(model => model.Course)</th>
+                    <th>@Html.DisplayNameFor(model => model.Instructor)</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <span>
+                                @if (item.State == SchoolManagementSystem.Model.Enums.CourseOfferingState.Waiting)
+                                {
+                                    <a class="label label-warning" title="Waiting"> </a>
+                                }
+                                else if (item.State == SchoolManagementSystem.Model.Enums.CourseOfferingState.Ongoing)
+                                {
+                                    <a class="label label-primary" title="On going"> </a>
+                                }
+                                else if (item.State == SchoolManagementSystem.Model.Enums.CourseOfferingState.Finished)
+                                {
+                                    <a class="label label-success" title="Finished"> </a>
+                                }
+                                else if (item.State == SchoolManagementSystem.Model.Enums.CourseOfferingState.Canceled)
+                                {
+                                    <a class="label label-danger" title="Canceled"> </a>
+                                }
+                            </span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @item.StartTime-@item.EndTime
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Room)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Instructor)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", "CourseOfferings", new { id = item.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-edit", @title = "Edit" })
+                            @Html.ActionLink(" ", "Details", "CourseOfferings", new { id = item.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-info-sign", @title = "Details" })
+                            @Html.ActionLink(" ", "Delete", "CourseOfferings", new { id = item.Id }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-remove", @title = "Delete" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th width="50">Status</th>
+                    <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.Course)</th>
+                    <th>@Html.DisplayNameFor(model => model.Instructor)</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/AdminLTE/plugins/datatables/js")
+    @Scripts.Render("~/Scripts/Tables/Data")
+}

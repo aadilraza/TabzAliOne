@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SchoolManagementSystem.Web.Models.Course.CourseViewModel>
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="accordion">
+    @foreach (var item in Model)
+    {
+        <h3 style="@(item.IsActive ? "":"color: orangered;")">@item.Title</h3>
+        <div>
+            <p>
+                @item.Description
+                <div class="box-footer">
+                    <a href="@Url.Action("Edit", "Courses",new { id = item.Id })" class="btn btn-app">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                    <a href="@Url.Action("Details", "Courses",new { id = item.Id })" class="btn btn-app">
+                        <i class="fa fa-info-circle"></i> Details
+                    </a>
+                    <a href="@Url.Action((item.IsActive ? "Deactivate" : "Activate"), "Courses",new { id = item.Id })" class="btn btn-app">
+                        <i class="@(item.IsActive? "fa fa-square-o" : "fa fa-check-square-o")"></i> @(item.IsActive ? "Deactivate" : "Activate")
+                    </a>
+                </div>
+            </p>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script>
+        $('#accordion').accordion();
+    </script>
+}
